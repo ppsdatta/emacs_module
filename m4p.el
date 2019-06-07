@@ -21,11 +21,15 @@
 
 (defun m4p-play ()
   (interactive)
-  (let ((cmd-string (format "open %s" (thing-at-point 'url))))
+  (let ((cmd-string (format "%s %s"
+			    (cond
+			     ((eq system-type 'gnu/linux) "xdg-open")
+			     ((eq system-type 'darwin) "open")
+			     ((eq system-type 'windows-nt) "start ")
+			     (t ""))
+			    (thing-at-point 'url))))
     (message cmd-string)
     (shell-command cmd-string)))
 
 (global-set-key (kbd "C-x C-m C-p C-l") 'm4p-listing)
 (global-set-key (kbd "C-x C-m C-p C-p") 'm4p-play)
-
-
