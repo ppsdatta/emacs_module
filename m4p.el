@@ -1,11 +1,8 @@
-;; M4P
-
 (require 'request)
 (require 'cl)
 (require 'thingatpt)
 
-(defun m4p-listing ()
-  (interactive)
+(defun m4p-list (new-b)
   (request "http://musicforprogramming.net/rss.php"
 	   :parser 'buffer-string
 	   :success (cl-function
@@ -16,7 +13,10 @@
 			      (rss (car root))
 			      (channel (car (xml-get-children rss 'channel)))
 			      (items (xml-get-children channel 'item)))
-			 (mapcar (lambda (i) (insert (format "%S => %s" (nth 2 (nth 3 i)) (nth 2 (nth 13 i)))) (newline))
+		         (mapcar (lambda (i) (insert (format "%S => %s"
+							     (nth 2 (nth 3 i))
+							     (nth 2 (nth 13 i))))
+				   (newline))
 				 items))))))
 
 (defun m4p-play ()
@@ -31,5 +31,10 @@
     (message cmd-string)
     (shell-command cmd-string)))
 
-(global-set-key (kbd "C-x C-m C-p C-l") 'm4p-listing)
+(defun m4p-current-buffer ()
+  (interactive)
+  (m4p-list nil))
+
+
+(global-set-key (kbd "C-x C-m C-p C-l") 'm4p-current-buffer)
 (global-set-key (kbd "C-x C-m C-p C-p") 'm4p-play)
