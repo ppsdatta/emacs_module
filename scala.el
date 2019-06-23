@@ -23,3 +23,11 @@
 			  default-directory
 			  (replace-in-string "." "/" package-name))
 		  t))
+
+(defun scala-java-package (package-name)
+  (interactive "sPackage name: ")
+  (make-directory (format "%s/src/main/java/%s"
+			  default-directory
+			  (replace-in-string "." "/" package-name))
+		  t))
+
