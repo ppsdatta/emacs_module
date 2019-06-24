@@ -2,7 +2,7 @@
   (interactive "sProject name: ")
   (make-directory project-name)
   (make-directory (format "%s/src/main/scala" project-name) t)
-  (make-directory (format "%s/src/main/test" project-name) t)
+  (make-directory (format "%s/src/test" project-name) t)
   (make-directory (format "%s/project" project-name) t)
   (write-region "" "" (format "%s/build.sbt" project-name))
   (message "Done"))
