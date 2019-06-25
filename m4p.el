@@ -38,3 +38,5 @@
 
 (global-set-key (kbd "C-x C-m C-p C-l") 'm4p-current-buffer)
 (global-set-key (kbd "C-x C-m C-p C-p") 'm4p-play)
+
+(provide 'm4p)
