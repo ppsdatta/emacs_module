@@ -1,19 +1,22 @@
 (defun make-task (name when)
   (interactive "sTask name \nsWhen to finish ")
   (move-end-of-line nil)
-  (insert (format "\n- %s (%s)\n" name when)))
+  (insert (format "\n- %s (%s)\n" name when))
+  (task-head))
 
 (defun mark-done ()
   (interactive)
   (move-end-of-line nil)
-  (insert "  ✓"))
+  (insert "  ✓")
+  (task-head))
 
 (defun mark-undone ()
   (interactive)
   (let ((line (thing-at-point 'line t)))
     (let ((replaced-line (replace-regexp-in-string "✓" "" line nil 'literal)))
       (kill-whole-line)
-      (insert replaced-line))))
+      (insert replaced-line))
+    (task-head)))
 
 (defun get-tasks (text)
   (let ((lines (split-string text "\n"))
@@ -51,4 +54,5 @@
 	     (cdr (assoc 'total stats))
 	     (cdr (assoc 'done stats))
 	     (cdr (assoc 'pending stats))))))
+
 
